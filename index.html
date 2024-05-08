@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>bas2bas</title>
+    <link rel="stylesheet" href="./css/style.css">
+</head>
+<body>
+    <div id="container" style="width: 70%; height: 100vh;"></div>
+    <div id="menu">
+        <div class="search-container" style="background-image: url('https://i.pinimg.com/originals/9b/e8/99/9be8990e7eb5ad4cf0a4e1ea5d8e4be0.jpg');">
+            <input type="text" class="search-input" placeholder="Поиск по мероприятиям"/>
+            <button class="search-button"><img style="width: 30px; height: 30px; margin: -2px -11px;" src="./accets/search.png" alt="Search" /></button>
+        </div>
+        <div class="icon-box">
+            <div class="navbar-links">
+                <ul class="navbar-ul">
+                    <li class="navbar-item" onclick="toggleContainer('posts')">
+                        <a href="#" class="navbar-link">
+                            <img src="./accets/learning.png" alt="" class="navbar-img" />
+                        </a>
+                        <span class="navbar-text">Education</span>
+                    </li>
+        
+                    <li class="navbar-item" onclick="toggleContainer('news')">
+                        <a href="#" class="navbar-link">
+                            <img src="./accets/cutlery.png" alt="" class="navbar-img" />
+                        </a>
+                        <span class="navbar-text">Food</span>
+                    </li>
+        
+                    <li class="navbar-item" onclick="toggleContainer('news')">
+                        <a href="#" class="navbar-link">
+                            <img src="./accets/cinema.png" alt="" class="navbar-img" />
+                        </a>
+                        <span class="navbar-text">Entertainment</span>
+                    </li>
+        
+                    <li class="navbar-item" onclick="toggleContainer('news')">
+                        <a href="#" class="navbar-link">
+                            <img src="./accets/save-the-world.png" alt="" class="navbar-img" />
+                        </a>
+                        <span class="navbar-text">Ecology</span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="text-box">
+            <div class="replies-section">
+                <div class="buttonForUser">
+                    <div class="button active" onclick="handleTabChange('posts')">Рекомендации</div>
+                    <div class="button" onclick="handleTabChange('replies')">Новости</div>
+                    <div class="button" onclick="handleTabChange('favorite')">Избранное</div>
+                </div>
+            </div>
+            <div class="contentForUser">
+                <div>
+                    
+                </div> <!-- posts -->
+            </div>
+        </div>
+        
+    </div>
+    <div class="icon-container">
+        <img class="burgerMenu" style="width: 40px;" src="./accets/burger-bar.png" alt="Burger Menu" />
+    <a href="./register.html">
+        <img id="userIcon"  style="width: 40px; border-radius: 50%; display: block;" src="./accets/default-user-icon.webp" alt="User Icon" />
+    </a>
+    </div> 
+    <!-- ! модальнок окно -->
+    <div id="myModal" class="modal">
+        <div class="modal-content">
+            <a href="#">Помощь</a>
+            <a id="logoutLink" href="#" style="display: none;">Выйти</a>
+            <a href="#">Добавить организацию</a>
+            <a href="#">Интересные места</a>
+        </div>
+    </div>
+       
+    <div id="tooltip"></div>
+    <div>
+        <img/>
+        <div id="postInfo">
+            <img id="postImage" src="" style="width: 100px; height: 100px;">
+            <h2 id="postName"></h2>
+            <p id="postDescription"></p>
+            <p id="postDate"></p>
+            <a id="openPost" href="">Подробнее</a>
+        </div>
+    </div>
+    <script src="./js/index.js"></script>
+    <script src="https://mapgl.2gis.com/api/js/v1?callback=initMap" async defer></script>
+</body>
+</html>

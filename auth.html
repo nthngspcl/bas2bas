@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+  <html lang="en">
+  <head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <title>Auth</title>
+      <link rel="stylesheet" href="./css/auth.css">
+  </head>
+  <body>
+      <div class="container">
+          <div class="login-form">
+            <h2>Вход</h2>
+            <form id = 'loginForm'>
+              <div class="input-group">
+                <input id="usernameLogin" type="text" placeholder="Username" required />
+              </div>
+              <div class="input-group">
+                <input id="passwordLogin" type="password" placeholder="Пароль" required />
+              </div>
+              <button id="loginBtn" type="submit" class="btn">Войти</button>
+            </form>
+            <p class="signup-link">Нет аккаунта? <a href="#">Зарегистрироваться</a></p>
+          </div>
+        </div>
+
+        <script>
+        async function loginUser(userLogin, navigateToMain) {
+              try {
+                  const formData = new URLSearchParams();
+                  formData.append('username', userLogin.username);
+                  formData.append('password', userLogin.password);
+
+                  const response = await fetch('http://34.125.206.123/login/', {
+                      method: 'POST',
+                      headers: {
+                          'Content-Type': 'application/x-www-form-urlencoded'
+                      },
+                      body: formData.toString()
+                  });
+
+                  if (!response.ok) {
+                      throw new Error('Ошибка HTTP: ' + response.status);
+                  }
+
+                  const data = await response.json();
+                  console.log(data);
+                  localStorage.setItem('KEY_TOKEN', data.access_token);
+                  navigateToMain();
+                  return data;
+              } catch (error) {
+                  console.error(error);
+                  console.log(userLogin);
+                  throw error;
+              }
+        }
+        document.addEventListener('DOMContentLoaded', function() {
+        document.getElementById('loginForm').addEventListener('submit', async function(event) {
+            event.preventDefault(); // Предотвращаем отправку формы по умолчанию
+
+            const username = document.getElementById('usernameLogin').value;
+            const password = document.getElementById('passwordLogin').value;
+
+            try {
+                const response = await loginUser({ username, password }, navigateToMain);
+
+                // Обработка ответа от сервера после успешного входа
+                console.log('Успешный вход:', response);
+            } catch (error) {
+                console.error('Ошибка входа:', error);
+                // Обработка ошибки входа
+            }
+        });
+    });
+
+    function navigateToMain() {
+        // Перенаправление на главную страницу
+        window.location.href = '/index.html';
+    }
+
+      </script>
+  </body>
+  </html>

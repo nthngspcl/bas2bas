@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create Post</title>
+    <link rel="stylesheet" href="./css/createPost.css">
+</head>
+<body>
+    <div class="container">
+        <form id="postForm">
+            <h2>Создание поста</h2>
+            <div class="form-group">
+                <label for="title">Название</label>
+                <input type="text" id="title" name="title" required />
+            </div>
+            <div class="form-group">
+                <label for="body">Описание</label>
+                <textarea id="body" name="body" rows="5" required></textarea>
+            </div>
+            <div class="form-group">
+                <label for="image">Ссылка на фото</label>
+                <input type="text" id="image" name="image" />
+            </div>
+            <div class="form-group">
+                <label for="lat">Latitude:</label>
+                <input type="number" id="lat" name="lat" step="any" />
+            </div>
+            <div class="form-group">
+                <label for="lng">Longitude:</label>
+                <input type="number" id="lng" name="lng" step="any" />
+            </div>
+            <div class="form-group">
+                <label for="date">Дата</label>
+                <input type="date" id="date" name="date" required />
+            </div>
+            <div class="form-group">
+                <label for="time">Время</label>
+                <input type="time" id="time" name="time" required />
+            </div>
+            <div class="form-group">
+                <label for="is_free">Is Free:</label>
+                <input type="checkbox" id="is_free" name="is_free" />
+            </div>
+            <div class="form-group">
+                <button type="submit">Создать</button>
+            </div>
+        </form>
+    </div>
+
+    <script>
+        if(localStorage.getItem('PLACE')){
+            const latValue = parseFloat(localStorage.getItem('lat')); // получаем значение широты из localStorage
+            const lngValue = parseFloat(localStorage.getItem('lng')); // получаем значение долготы из localStorage
+
+            // устанавливаем полученные значения в соответствующие инпуты
+            document.querySelector('#lat').value = latValue;
+            document.querySelector('#lng').value = lngValue;
+        }
+        document.addEventListener('DOMContentLoaded', function() {
+            const form = document.querySelector('#postForm');
+
+            form.addEventListener('submit', async function(event) {
+                event.preventDefault();
+                const title = document.querySelector('#title').value; // строка (string)
+                const body = document.querySelector('#body').value; // строка (string)
+                const image = document.querySelector('#image').value; // строка (string)
+                const lat = parseFloat(document.querySelector('#lat').value); // число (number)
+                const lng = parseFloat(document.querySelector('#lng').value); // число (number)
+                const date = document.querySelector('#date').value; // строка (string)
+                const time = document.querySelector('#time').value + ':00.000Z'; // строка (string)
+                const is_free = document.querySelector('#is_free').checked;
+
+                const formData = {
+                    title,
+                    body,
+                    image,
+                    lat,
+                    lng,
+                    date,
+                    time,
+                    is_free,
+                };
+                
+                console.log(formData)
+                const url = 'http://34.125.206.123/post/'; // Укажите ваш URL-адрес для создания поста
+                const options = {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': 'Bearer ' + localStorage.getItem('KEY_TOKEN')
+                    },
+                    body: JSON.stringify({
+                        title,
+                        body,
+                        image,
+                        lat,
+                        lng,
+                        date,
+                        time,
+                        is_free,
+                    }),
+                };
+                try {
+                    const response = await fetch(url, options);
+                    if (!response.ok) {
+                        throw new Error('Ошибка HTTP: ' + response.status);
+                    }
+                    const data = await response.json();
+                    console.log('Пост успешно создан:', data);
+                    // Здесь можно добавить дополнительную логику после успешного создания поста
+                } catch (error) {
+                    console.error('Ошибка создания поста:', error);
+                    // Здесь можно добавить обработку ошибок при создании поста
+                }
+            });
+        });
+    </script>
+</body>
+</html>

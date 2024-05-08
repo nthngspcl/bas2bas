@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>register</title>
+    <link rel="stylesheet" href="./css/register.css">
+</head>
+<body>
+    <div class="container">
+        <div class="signup-form">
+          <h2>Регистрация</h2>
+          <form id="registrationForm">
+            <div class="input-group">
+              <input id="name" type="text" placeholder="Имя" required />
+            </div>
+            <div class="input-group">
+              <input id="mailRegister" type="email" placeholder="Email" required />
+            </div>
+            <div class="input-group">
+              <input id="passwordRegister" type="password" placeholder="Пароль" required />
+            </div>
+            <div class="input-group">
+              <input id="passwordRegisterConfirm" type="password" placeholder="Подтверждение пароля" required />
+            </div>
+            <button id="registerBtn" type="submit" class="btn">Зарегистрироваться</button>
+          </form>
+          <p class="login-link">Уже есть аккаунт? <a href="auth.html">Войти</a></p>
+        </div>
+      </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const registrationForm = document.getElementById('registrationForm');
+
+            registrationForm.addEventListener('submit', async function(event) {
+                event.preventDefault(); // Предотвращаем отправку формы по умолчанию
+
+                // Получаем данные из полей формы
+                const username = document.getElementById('name').value;
+                const email = document.getElementById('mailRegister').value;
+                const password = document.getElementById('passwordRegister').value;
+                const confirmPassword = document.getElementById('passwordRegisterConfirm').value;
+
+                // Проверяем, что пароль и его подтверждение совпадают
+                if (password !== confirmPassword) {
+                    alert('Пароль и подтверждение пароля не совпадают!');
+                    return;
+                }
+
+                try {
+                    // Отправляем данные на сервер для регистрации
+                    const response = await fetch('http://34.125.206.123/users/', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify({
+                            username: username,
+                            email: email,
+                            password: password
+                        }),
+                    });
+
+                    if (!response.ok) {
+                        throw new Error('Ошибка HTTP: ' + response.status);
+                    }
+
+                    // Перенаправляем пользователя на страницу входа или другую страницу
+                    window.location.href = '/auth.html'; // Измените адрес по необходимости
+                } catch (error) {
+                    console.error('Ошибка регистрации:', error);
+                    // Обработка ошибки регистрации
+                }
+            });
+        });
+    </script>
+</body>
+</html>
