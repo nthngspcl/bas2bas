@@ -7,8 +7,42 @@
   width: 200px;
   height: 300px;
   background-color: #f0f0f0;
-  padding: 20px;
   display: none;
+}
+#postImage{
+  width: 200px;
+  height: 120px;
+}
+#postInfoText{
+  padding: 20px;
+}
+#createPost{
+  font-size: 20px;
+  display: none;
+  width: 180px;
+  height: 30px;
+  align-items: center;
+  background-color: #f0f0f0;
+}
+
+#createPost button{
+  width: 30px;
+  height: 30px;
+  border: none;
+  cursor: pointer;
+}
+#createPostBtnYes{
+  margin-left: 8.5px;
+  background-color: darkseagreen;
+}
+#createPostBtnNo{
+  background-color: red;
+}
+#createPostBtnYes:hover{
+  background-color: darkgreen;
+}
+#createPostBtnNo:hover{
+  background-color: firebrick;
 }
 #openPost{
   text-decoration: none;
