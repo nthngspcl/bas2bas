@@ -121,7 +121,7 @@ function initMap() {
                 postImage.src = post?.image;
                 postTitle.innerHTML = post?.title;
                 postDescription.innerHTML = post?.body;
-                postDate.innerHTML = post?.date;
+                postDate.innerHTML = `Дата: ${post?.date}`;
                 postOpen = true; // Устанавливаем флаг в состояние "открыт"
             } else {
                 postInfoEl.style.display = 'none';
