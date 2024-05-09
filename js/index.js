@@ -36,6 +36,8 @@ function initMap() {
         zoom: 13,
         key: '97633a11-4c0a-4af5-b38b-4b96418e7305',
     });
+    const createPostEl = document.querySelector('#createPost')
+    let createPostOpen = false;
     map.on('click', (e) => {
         if (!e.target) {
             return;
@@ -43,8 +45,33 @@ function initMap() {
         const { id } = e.target;
         localStorage.setItem('lng', e.lngLat[0]);
         localStorage.setItem('lat', e.lngLat[1]);
+        const offset = 5;
+        createPostEl.style.position = 'absolute'
+        createPostEl.style.top = `${e.point[1] + offset}px`;
+        createPostEl.style.left = `${e.point[0] + offset}px`;
+        createPostEl.style.display = 'flex'
         console.log(e.lngLat)
-        alert('Идентификатор объекта: ' + id);
+        if (!createPostOpen) {
+            createPostEl.style.display = 'flex';
+            createPostOpen = true; // Устанавливаем флаг в состояние "открыт"
+        } else {
+            createPostEl.style.display = 'none';
+            createPostOpen = false; // Устанавливаем флаг в состояние "закрыт"
+        }
+        const createPostBtnNoEl = document.querySelector('#createPostBtnNo') 
+        createPostBtnNoEl.addEventListener('click', (e) =>{
+            createPostOpen = false
+            createPostEl.style.display = 'none';
+            localStorage.removeItem('lat')
+            localStorage.removeItem('lng')
+        })
+        window.addEventListener('click', function(event) {
+            // Проверяем, был ли клик сделан за пределами поста и его маркера, только если пост открыт
+            if (createPostOpen && !createPostEl.contains(event.target)) {
+                createPostEl.style.display = 'none'; // Скрываем элемент с информацией о посте
+                createPostOpen = false; // Сбрасываем флаг состояния поста
+            }
+        });
     });
     sendRequest('http://34.125.206.123/post/', "GET")
         .then(posts => {
