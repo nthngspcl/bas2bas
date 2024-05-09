@@ -14,17 +14,20 @@
   height: 120px;
 }
 #postInfoText{
-  padding: 20px;
+  padding: 10px;
 }
 #createPost{
   font-size: 20px;
   display: none;
-  width: 180px;
+  width: 185px;
   height: 30px;
   align-items: center;
   background-color: #f0f0f0;
+  border-radius: 5px;
 }
-
+#createPost p{
+  margin-left: 5.4px;
+}
 #createPost button{
   width: 30px;
   height: 30px;
@@ -37,6 +40,7 @@
 }
 #createPostBtnNo{
   background-color: red;
+  border-radius: 0 5px 5px 0;
 }
 #createPostBtnYes:hover{
   background-color: darkgreen;
