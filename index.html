@@ -79,15 +79,19 @@
     </div>
        
     <div id="tooltip"></div>
-    <div>
-        <img/>
-        <div id="postInfo">
-            <img id="postImage" src="" style="width: 100px; height: 100px;">
+    <div id="postInfo">
+        <img id="postImage" src="">
+        <div id="postInfoText">
             <h2 id="postName"></h2>
             <p id="postDescription"></p>
             <p id="postDate"></p>
             <a id="openPost" href="">Подробнее</a>
         </div>
+    </div>
+    <div id="createPost">
+            <p>Создать пост</p>
+            <button id="createPostBtnYes" onclick="document.location='createPost.html'">V</button>
+            <button id="createPostBtnNo">X</button>
     </div>
     <script src="./js/index.js"></script>
     <script src="https://mapgl.2gis.com/api/js/v1?callback=initMap" async defer></script>
